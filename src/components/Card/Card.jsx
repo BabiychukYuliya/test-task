@@ -6,8 +6,8 @@ import Ellipse from '../../images/Ellipse.png';
 import Line from '../../images/Line.png';
 import Hansel from '../../images/Hansel.png';
 
-export const Card = ({ avatar, tweets, followers }) => {
-    return (<Container>
+export const Card = ({ id, user,avatar,tweets, followers}) => {
+    return (<Container key={id}>
         <LogoBox>
             <img src={logo} alt='logo'></img>
         </LogoBox>
