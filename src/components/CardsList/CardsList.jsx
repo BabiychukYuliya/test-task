@@ -1,8 +1,9 @@
 import { Card } from 'components/Card/Card';
 import { UserList } from './CardsList.styled';
+
 // import { Container } from 'components/Container/Container';
 
-const CardsList = ({ users }) => {
+const CardsList = ({ users, onFollowClick }) => {
   return (
     <UserList>
       {users.length > 0 &&
@@ -14,12 +15,15 @@ const CardsList = ({ users }) => {
             followers={followers}
             followed={followed}
             user={user}
-            avatar={avatar}
+              avatar={avatar}
+              onFollowClick={onFollowClick}
           />
           </li>
 
         ))}
     </UserList>
+      
+ 
   );
 };
 

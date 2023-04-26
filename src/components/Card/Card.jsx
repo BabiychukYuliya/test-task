@@ -1,33 +1,51 @@
-import {Container, LogoBox, DecorBox, Avatar, AvatarEllipse, AvatarLine, TextBox, UserTeweets,UserFollowers,Button} from './Card.styled';
+import {
+  Container,
+  LogoBox,
+  DecorBox,
+  LineCenter,
+  Avatar,
+  AvatarBox,
+  TextBox,
+  UserTeweets,
+  UserFollowers,
+    Button,
+    ButtonText
+} from './Card.styled';
+import { load } from 'components/services/localStorage';
+
 
 import logo from '../../images/logo.png';
 import picture from '../../images/picture.png';
-import Ellipse from '../../images/Ellipse.png';
-import Line from '../../images/Line.png';
-import Hansel from '../../images/Hansel.png';
 
-export const Card = ({ id, user,avatar,tweets, followers}) => {
-    return (<Container key={id}>
-        <LogoBox>
-            <img src={logo} alt='logo'></img>
-        </LogoBox>
-        <DecorBox>
-            <img src={picture} alt='decoration'></img>
-        </DecorBox>
-        
-                {/* <AvatarBox>
-            
-            
-           
-        </AvatarBox> */}
-        <AvatarEllipse src={Ellipse} alt='ellipse' />
-        <AvatarLine src={Line} alt='line' />
-        <Avatar src={Hansel} alt='user' width={62} height={62}/>
+export const Card = ({ id, avatar, tweets, followers, onFollowClick }) => {
+    const isFollowing = load(`tweets_${id}`);
 
-        <TextBox>
-            <UserTeweets>{tweets} tweets</UserTeweets>
-            <UserFollowers>{followers} followers</UserFollowers>
-        </TextBox>
-<Button>Follow</Button>
-            </Container>)
-}
+   const handleFollowClick = () => {
+    onFollowClick(id, isFollowing);
+  };
+
+
+  return (
+    <Container>
+      <LogoBox src={logo} alt="logo" />
+      <DecorBox src={picture} alt="decoration" />
+      <LineCenter />
+      <AvatarBox>
+        <Avatar src={avatar} />
+      </AvatarBox>
+      <TextBox>
+        <UserTeweets>{tweets} tweets</UserTeweets>
+        <UserFollowers>{followers} followers</UserFollowers>
+      </TextBox>
+      <Button
+        type='button'
+        onClick={handleFollowClick}
+        isFollowing={isFollowing}
+      >
+        <ButtonText isFollowing={isFollowing}>
+          {isFollowing ? 'Following' : 'Follow'}
+        </ButtonText>
+      </Button>
+    </Container>
+  );
+};
